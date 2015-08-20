@@ -1,5 +1,18 @@
 describe('binarySearchTree', function() {
   var binarySearchTree;
+  var nums = [];
+  for (var i = 0; i < 50000000; i++) {
+    nums.push(i*3);
+  };
+  
+  var shuffled = _.shuffle(nums);
+  var bst = BinarySearchTree(shuffled[0]);
+  for (var i = 1; i < shuffled.length; i++) {
+    bst.insert(shuffled[i]);
+  };
+  // bst.breadthFirstLog(function(item) {
+    // console.log(item);
+  // });
 
   beforeEach(function() {
     binarySearchTree = BinarySearchTree(5);
@@ -24,8 +37,8 @@ describe('binarySearchTree', function() {
     binarySearchTree.insert(2);
     binarySearchTree.insert(3);
     binarySearchTree.insert(7);
-    expect(binarySearchTree.contains(7)).to.equal(true);
-    expect(binarySearchTree.contains(8)).to.equal(false);
+    expect(bst.contains(7)).to.equal(false);
+    expect(bst.contains(9)).to.equal(true);
   });
 
   it('should execute a callback on every value in a tree using "depthFirstLog"', function(){
@@ -36,5 +49,23 @@ describe('binarySearchTree', function() {
     binarySearchTree.depthFirstLog(func);
     console.log(array);
     expect(array).to.eql([5,2,3]);
+  });
+  it('should search for the closest number', function() {
+    expect(bst.closest(16)).to.eql(15);
+  });
+  it('should find value if in bst using closest', function() {
+    expect(bst.closest(12)).to.eql(12);
+  });
+  it('compareToArray', function() {
+    var closest = shuffled[0];
+    var target = 16;
+    for (var i = 0; i < shuffled.length; i++) {
+      var prevDiff = Math.abs(closest - target);
+      var currDiff = Math.abs(shuffled[i] - target);
+      if (currDiff < prevDiff) {
+        closest = shuffled[i];
+      }
+    };
+    expect(closest).to.eql(15);
   });
 });
