@@ -6,36 +6,17 @@ var Queue = function() {
   this.tail = 0;
 };
 
- //  Queue.prototype.enqueue = function(value) {
- //    this.storage[this.tail++] = value;
- //  };
- // Queue.prototype.dequeue = function() {
- //    if (this.head !== this.tail) {
- //      return this.storage[this.head++];
- //    }
- //  };
- //  Queue.prototype.size = function() {
- //    return this.tail-this.head;
- //  };
-
-var queueMethods = {
-  enqueue: function(value) {
-    this.storage[this.tail++] = value;
-  },
-  dequeue: function() {
-    if (this.head !== this.tail) {
-      return this.storage[this.head++];
-    }
-  },
-  size: function() {
-    return this.tail-this.head;
+Queue.prototype.enqueue = function(value) {
+  this.storage[this.tail++] = value;
+};
+Queue.prototype.dequeue = function() {
+  if (this.head !== this.tail) {
+    return this.storage[this.head++];
   }
-}
-
-
-_.extend(Queue.prototype, queueMethods);
-
-var q = new Queue();
+};
+Queue.prototype.size = function() {
+  return this.tail-this.head;
+};
 
 
 
