@@ -75,8 +75,8 @@ BinarySearchTree.prototype.closest = function(target, closest) {
   var prevDiff = Math.abs(closest - target);
   var currDiff = Math.abs(this.value - target);
   console.log(closest);
-  console.log("PREV DIFF : " + prevDiff);
-  console.log("cURR DIFF : " + currDiff);
+  // console.log("PREV DIFF : " + prevDiff);
+  // console.log("cURR DIFF : " + currDiff);
   
   // debugger;
   if(currDiff < prevDiff){

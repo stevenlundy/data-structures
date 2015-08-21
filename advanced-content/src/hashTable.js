@@ -19,7 +19,6 @@ HashTable.prototype.insert = function(k, v){
     this._storage.set(i, stored);
   }
   this._size++;
-  // debugger;
   if (this._size >= this._limit * 0.75) {
     console.log("RESIZING");
     this.resize(this._limit*2);
@@ -53,7 +52,6 @@ HashTable.prototype.remove = function(k){
 };
 
 HashTable.prototype.resize = function(n) {
-  debugger;
   this._limit = n;
   this._size = 0;
   var oldStorage = this._storage;

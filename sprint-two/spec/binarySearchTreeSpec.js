@@ -1,7 +1,7 @@
 describe('binarySearchTree', function() {
   var binarySearchTree;
   var nums = [];
-  for (var i = 0; i < 50000000; i++) {
+  for (var i = 0; i < 5000000; i++) {
     nums.push(i*3);
   };
   

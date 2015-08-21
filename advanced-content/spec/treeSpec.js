@@ -52,4 +52,15 @@ describe('tree', function() {
     expect(tree.contains(8)).to.equal(true);
   });
 
+  it('should traverse', function(){
+    tree.addChild(5);
+    tree.addChild(6);
+    tree.children[0].addChild(100);
+    var sum = 0;
+    tree.traverse(function(a) {
+      sum += a;
+    });
+    expect(sum).to.equal(111);
+  });
+
 });

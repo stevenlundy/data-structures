@@ -18,6 +18,15 @@ treeMethods.addChild = function(value){
   this.children.push(child);
 };
 
+treeMethods.traverse = function(cb) {
+  if (this.value !== undefined) {
+    cb(this.value);
+  }
+  for (var i = 0; i < this.children.length; i++) {
+    this.children[i].traverse(cb);
+  }
+};
+
 treeMethods.removeFromParent = function() {
   var iOfThis = this.parent.children.indexOf(this);
   this.parent.children.splice(iOfThis, 1);
