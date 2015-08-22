@@ -6,10 +6,11 @@ var BinarySearchTree = function(value){
   bst.size = 1
   bst.maxDepth = 1;
   return bst;
-};
+}; 
 
 BinarySearchTree.prototype.insert = function(value, root) {
   root = root || this;
+  //if(this === root) debugger;
   if (this.value === undefined) {
     this.value = value;
     return;
@@ -21,15 +22,21 @@ BinarySearchTree.prototype.insert = function(value, root) {
     if(depthReached > this.maxDepth){
       this.maxDepth = depthReached;
     }
-    var minDepth = Math.floor(Math.log(this.size, 2)) + 1;
+    var minDepth = Math.floor(Math.log2(this.size)) + 1;
+
     if(this.maxDepth > 2*minDepth && this === root){
+      debugger;
       root.rebalance();
     }
     return depthReached;
   }
   else {
+    var depthReached = 2;
+    if(depthReached > this.maxDepth){
+      this.maxDepth = depthReached;
+    }
     this[direction] = BinarySearchTree(value);
-    return 1;
+    return depthReached;
   }  
 };
 
@@ -71,19 +78,18 @@ BinarySearchTree.prototype.rebalance = function(){
     values.push(value);
   });
   var superBinaryTraverse = function (list, cb, beg, end) {
-    beg = beg || 0;
-    end = end || list.length - 1;
+    beg = beg === undefined ? 0 : beg;
+    end = end === undefined ? list.length - 1 : end;
 
     if(beg > end) {
       return;
     }
 
     var mid = Math.floor((beg+end)/2);
-    cb(mid);
+    cb(list[mid]);
     superBinaryTraverse(list, cb, beg, mid - 1);
     superBinaryTraverse(list, cb, mid + 1, end);
   }
-  debugger;
   var balancedTree = BinarySearchTree();
 
   superBinaryTraverse(values, function(value){

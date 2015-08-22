@@ -10,9 +10,11 @@ describe('binarySearchTree', function() {
   for (var i = 1; i < shuffled.length; i++) {
     bst.insert(shuffled[i]);
   };
-  // bst.breadthFirstLog(function(item) {
-    // console.log(item);
-  // });
+
+
+  bst.breadthFirstLog(function(item) {
+    console.log(item);
+  });
 
   beforeEach(function() {
     binarySearchTree = BinarySearchTree(5);
@@ -65,17 +67,6 @@ describe('binarySearchTree', function() {
   it('should search for the closest number', function() {
     expect(bst.closest(16)).to.eql(15);
   });
-  it('should rebalance', function() {
-    var balancedBst = BinarySearchTree();
-    for (var i = 0; i < 7; i++) {
-      balancedBst.insert(i);
-    };
-    var arr = [];
-    balancedBst.breadthFirstLog(function(value) {
-      arr.push(value);
-    });
-    expect(arr).to.equal([4,2,1,3,6,5,7]);
-  });
   it('should find value if in bst using closest', function() {
     expect(bst.closest(12)).to.eql(12);
   });
@@ -91,4 +82,16 @@ describe('binarySearchTree', function() {
     };
     expect(closest).to.eql(15);
   });
+  it('should rebalance', function() {
+    var balancedBst = BinarySearchTree();
+    for (var i = 1; i <= 7; i++) {
+      balancedBst.insert(i);
+    };
+    var arr = [];
+    balancedBst.breadthFirstLog(function(value) {
+      arr.push(value);
+    });
+    expect(arr).to.eql([ 4, 2, 6, 1, 3, 5, 7 ]);
+  });
+  
 });
