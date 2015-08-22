@@ -10,7 +10,6 @@ var BinarySearchTree = function(value){
 
 BinarySearchTree.prototype.insert = function(value, root) {
   root = root || this;
-  //if(this === root) debugger;
   if (this.value === undefined) {
     this.value = value;
     return;
@@ -25,7 +24,6 @@ BinarySearchTree.prototype.insert = function(value, root) {
     var minDepth = Math.floor(Math.log2(this.size)) + 1;
 
     if(this.maxDepth > 2*minDepth && this === root){
-      debugger;
       root.rebalance();
     }
     return depthReached;

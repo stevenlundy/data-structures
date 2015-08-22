@@ -28,6 +28,7 @@ BloomFilter.prototype.setBit = function(n) {
   if (!this.isBitSet(n)) {
     this.storage += Math.pow(2, n);
   }
+  debugger;
 };
 
 BloomFilter.prototype.contains = function(v) {
