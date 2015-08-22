@@ -3,26 +3,34 @@ var BinarySearchTree = function(value){
   bst.value = value;
   bst.left;
   bst.right;
+  bst.size = 1
+  bst.maxDepth = 1;
   return bst;
 };
 
-BinarySearchTree.prototype.insert = function(value) {
-  if (value > this.value) {
-    if (this.right !== undefined) {
-      this.right.insert(value);
-    }
-    else {
-      this.right = BinarySearchTree(value);
-    }
+BinarySearchTree.prototype.insert = function(value, root) {
+  root = root || this;
+  if (this.value === undefined) {
+    this.value = value;
+    return;
   }
-  else if (value < this.value) {
-    if (this.left !== undefined) {
-      this.left.insert(value);
+  var direction = value > this.value ? 'right' : 'left';
+  this.size++;
+  if (this[direction] !== undefined) {
+    var depthReached = this[direction].insert(value, root) + 1;
+    if(depthReached > this.maxDepth){
+      this.maxDepth = depthReached;
     }
-    else {
-      this.left = BinarySearchTree(value);
+    var minDepth = Math.floor(Math.log(this.size, 2)) + 1;
+    if(this.maxDepth > 2*minDepth && this === root){
+      root.rebalance();
     }
+    return depthReached;
   }
+  else {
+    this[direction] = BinarySearchTree(value);
+    return 1;
+  }  
 };
 
 BinarySearchTree.prototype.contains = function(value) {
@@ -46,6 +54,46 @@ BinarySearchTree.prototype.depthFirstLog = function(cb) {
   if (this.right) {
     this.right.depthFirstLog(cb);
   }
+}
+
+BinarySearchTree.prototype.eachInOrder = function(cb) {
+  if (this.left) {
+    this.left.eachInOrder(cb);
+  }
+  cb(this.value);
+  if (this.right) {
+    this.right.eachInOrder(cb);
+  }
+}
+BinarySearchTree.prototype.rebalance = function(){
+  var values = [];
+  this.eachInOrder(function(value){
+    values.push(value);
+  });
+  var superBinaryTraverse = function (list, cb, beg, end) {
+    beg = beg || 0;
+    end = end || list.length - 1;
+
+    if(beg > end) {
+      return;
+    }
+
+    var mid = Math.floor((beg+end)/2);
+    cb(mid);
+    superBinaryTraverse(list, cb, beg, mid - 1);
+    superBinaryTraverse(list, cb, mid + 1, end);
+  }
+  debugger;
+  var balancedTree = BinarySearchTree();
+
+  superBinaryTraverse(values, function(value){
+    balancedTree.insert(value);
+  });
+
+  this.value = balancedTree.value;
+  this.left = balancedTree.left;
+  this.right = balancedTree.right;
+
 }
 
 BinarySearchTree.prototype.breadthFirstLog = function(cb) {

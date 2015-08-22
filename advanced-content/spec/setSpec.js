@@ -24,4 +24,24 @@ describe('set', function() {
     expect(set.contains("Mel Gibson")).to.equal(false);
   });
 
+  it('should add numbers to a set', function(){
+    
+    set.add(5);
+    expect(set.contains(5)).to.equal(true);
+    expect(set.contains("5")).to.equal(false);
+    set.remove(5);
+
+    set.add("5");
+    expect(set.contains(5)).to.equal(false);
+    expect(set.contains("5")).to.equal(true);
+  });
+
+  it('should add objects to a set', function(){
+    var susan = {'Susan': 'Sarandon'}
+    set.add(susan);
+    set.add("Danny Glover");
+    expect(set.contains('Danny Glover')).to.equal(true);
+    expect(set.contains(susan)).to.equal(true);
+  });
+
 });

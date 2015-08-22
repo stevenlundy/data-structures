@@ -1,7 +1,7 @@
 describe('binarySearchTree', function() {
   var binarySearchTree;
   var nums = [];
-  for (var i = 0; i < 100; i++) {
+  for (var i = 0; i < 10; i++) {
     nums.push(i*3);
   };
   
@@ -64,6 +64,17 @@ describe('binarySearchTree', function() {
   });
   it('should search for the closest number', function() {
     expect(bst.closest(16)).to.eql(15);
+  });
+  it('should rebalance', function() {
+    var balancedBst = BinarySearchTree();
+    for (var i = 0; i < 7; i++) {
+      balancedBst.insert(i);
+    };
+    var arr = [];
+    balancedBst.breadthFirstLog(function(value) {
+      arr.push(value);
+    });
+    expect(arr).to.equal([4,2,1,3,6,5,7]);
   });
   it('should find value if in bst using closest', function() {
     expect(bst.closest(12)).to.eql(12);
