@@ -26,24 +26,27 @@ describe('bloomFilter', function() {
     var k = 3;
     var n = 8;
     bloomFilter = new BloomFilter(m, k);
-    debugger;
     var fpTheory = Math.pow(1- Math.pow(Math.E,(-k*n/m)),k);
     var nums = [];
     for (var i = 0; i < n; i++) {
-      nums.push(i*3 + 100);
-      bloomFilter.add('' + (i*3 + 100));
+      var rand = Math.floor(Math.random()*1000);
+      while(nums.indexOf(rand) !== -1){
+        rand = Math.floor(Math.random()*1000);
+      }
+
+      nums.push(rand);
+      bloomFilter.add(rand);
     }
 
     var fp = 0;
-    debugger;
-    for(var i = 0; i < 10000; i++){
-      if(bloomFilter.contains(i) && nums.indexOf(i) > -1){
+    for(var i = 0; i < 100000; i++){
+      if(bloomFilter.contains(i) && nums.indexOf(i) === -1){
         fp++;
       }
     }
 
     console.log(fpTheory);
-    console.log(fp/10000);
+    console.log(fp/100000);
 
 
   })

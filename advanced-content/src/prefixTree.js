@@ -82,8 +82,4 @@ var PrefixTree = function(words){
 
   return tree;
 }
-var test = PrefixTree(englishWords);
-console.log(test);
-console.log(_.map('telecommunications'.split(''), function(ch){
-  return test.numFromChar(ch);
-}).join(''));
+

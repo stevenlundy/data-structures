@@ -15,20 +15,22 @@ BloomFilter.prototype.isBitSet = function(n) {
   var storage = this.storage;
   var subtractor = Math.pow(2, this.m);
   var decN = Math.pow(2, n);
-  while (storage > decN) {
-    if(storage > subtractor){
+  while (storage >= decN) {
+    if(storage >= subtractor){
+      if (subtractor === decN) {
+        return true;
+      }
       storage -= subtractor;
     }
     subtractor /= 2;
   }
-  return storage >= decN;
+  return false;
 };
 
 BloomFilter.prototype.setBit = function(n) {
   if (!this.isBitSet(n)) {
     this.storage += Math.pow(2, n);
   }
-  debugger;
 };
 
 BloomFilter.prototype.contains = function(v) {
