@@ -28,9 +28,8 @@ BloomFilter.prototype.isBitSet = function(n) {
 };
 
 BloomFilter.prototype.setBit = function(n) {
-  if (!this.isBitSet(n)) {
-    this.storage += Math.pow(2, n);
-  }
+  var bit = Math.pow(2, n);
+  this.storage = this.storage | bit;
 };
 
 BloomFilter.prototype.contains = function(v) {
