@@ -4,17 +4,17 @@ var Queue = function(){
   var tail = 0;
   // Use an object with numeric keys to store values
   var storage = {};
+  var front = 0;
+  var back = 0;
 
   // Implement the methods below
 
   someInstance.enqueue = function(value){
-    debugger;
     storage[tail++] = value;
   };
 
   someInstance.dequeue = function(){
     
-    debugger;
     if (head === tail){
       return undefined;
     }
